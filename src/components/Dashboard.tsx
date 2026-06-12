@@ -5,9 +5,7 @@ import {
   Layers, 
   AlertTriangle, 
   TrendingUp, 
-  Package, 
   ArrowRight,
-  TrendingDown,
   RefreshCw
 } from 'lucide-react';
 import { Line, Bar } from 'react-chartjs-2';

@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { type FormEvent, useState, useEffect } from 'react';
 import { 
   Plus, 
   Search, 
-  Layers, 
   AlertTriangle, 
   Trash2, 
   Edit3, 
   RefreshCw,
-  TrendingUp,
-  SlidersHorizontal,
-  ChevronDown,
-  Percent,
   X,
-  PackageCheck
 } from 'lucide-react';
 
 interface Product {
@@ -39,7 +33,7 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
   // Filters & State
   const [search, setSearch] = useState('');
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'healthy'>('all');
-  const [sortBy, setSortBy] = useState<'name' | 'stock' | 'price' | 'sku'>('name');
+  const [sortBy, setSortBy] = useState<'name' | 'stock_quantity' | 'price' | 'sku'>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   // Modals
@@ -103,7 +97,7 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
     setIsEditOpen(true);
   };
 
-  const handleAddProduct = async (e: React.FormEvent) => {
+  const handleAddProduct = async (e: FormEvent) => {
     e.preventDefault();
     if (!newName || !newSku) {
       setFormError('Name and SKU code are strictly required');
@@ -141,7 +135,7 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
     }
   };
 
-  const handleEditProduct = async (e: React.FormEvent) => {
+  const handleEditProduct = async (e: FormEvent) => {
     e.preventDefault();
     if (!selectedProduct) return;
 
@@ -220,7 +214,7 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
     }
   });
 
-  const toggleSort = (field: 'name' | 'stock' | 'price' | 'sku') => {
+  const toggleSort = (field: 'name' | 'stock_quantity' | 'price' | 'sku') => {
     if (sortBy === field) {
       setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
     } else {
@@ -315,8 +309,8 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
                   <th onClick={() => toggleSort('sku')} className="py-4 px-4 cursor-pointer hover:bg-[#1A1D24] hover:text-[#E2E8F0] transition w-32">
                     <span className="flex items-center gap-1 font-mono">SKU ID {sortBy === 'sku' && (sortOrder === 'asc' ? '▲' : '▼')}</span>
                   </th>
-                  <th onClick={() => toggleSort('stock')} className="py-4 px-4 cursor-pointer hover:bg-[#1A1D24] hover:text-[#E2E8F0] transition text-right w-28">
-                    <span className="flex items-center gap-1 justify-end">Stock {sortBy === 'stock' && (sortOrder === 'asc' ? '▲' : '▼')}</span>
+                  <th onClick={() => toggleSort('stock_quantity')} className="py-4 px-4 cursor-pointer hover:bg-[#1A1D24] hover:text-[#E2E8F0] transition text-right w-28">
+                    <span className="flex items-center gap-1 justify-end">Stock {sortBy === 'stock_quantity' && (sortOrder === 'asc' ? '▲' : '▼')}</span>
                   </th>
                   <th className="py-4 px-4 text-right w-24">Alert Line</th>
                   <th onClick={() => toggleSort('price')} className="py-4 px-4 cursor-pointer hover:bg-[#1A1D24] hover:text-[#E2E8F0] transition text-right w-28">

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="application/msword; charset=UTF-8">
+  <title>Inventory and Billing Management System Project Report</title>
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      font-size: 12pt;
+      color: #000000;
+      line-height: 1.5;
+      margin: 1in;
+    }
+    h1, h2, h3 {
+      margin-top: 18pt;
+      margin-bottom: 8pt;
+    }
+    h1 {
+      text-align: center;
+      font-size: 20pt;
+    }
+    h2 {
+      font-size: 15pt;
+      border-bottom: 1px solid #000000;
+      padding-bottom: 4pt;
+    }
+    h3 {
+      font-size: 13pt;
+    }
+    .center { text-align: center; }
+    .muted { color: #444444; }
+    .small { font-size: 10pt; }
+    .page-break { page-break-after: always; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10pt;
+      margin-bottom: 12pt;
+    }
+    th, td {
+      border: 1px solid #000000;
+      padding: 6pt;
+      vertical-align: top;
+    }
+    th {
+      background: #d9e2f3;
+    }
+    ul {
+      margin-top: 6pt;
+      margin-bottom: 6pt;
+    }
+    .toc td {
+      border: none;
+      padding: 2pt 0;
+    }
+    .toc .dots {
+      border-bottom: 1px dotted #666666;
+      height: 12pt;
+    }
+    .box {
+      border: 1px solid #000000;
+      padding: 12pt;
+      margin: 10pt 0;
+      background: #f7f7f7;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <p class="small">A Project Report On</p>
+    <h1>Inventory and Billing Management System</h1>
+    <p>Submitted in partial fulfillment of the requirement for the software project report.</p>
+    <p><strong>Technology Stack:</strong> React, TypeScript, Express, Supabase, Vite</p>
+    <p><strong>Application Type:</strong> Full-stack Retail Operations System</p>
+
+    <table>
+      <tr>
+        <th>Prepared By</th>
+      </tr>
+      <tr>
+        <td>
+          Name: Kachhad Harsh<br>
+          Platform: Launched Global<br>
+          College: Marwadi University<br>
+          Domain: Web Development
+        </td>
+      </tr>
+    </table>
+
+    <p class="muted">Academic Year 2025 - 26</p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h2 class="center">CONTENTS</h2>
+  <table class="toc">
+    <tr>
+      <td style="width: 70%;">1. Synopsis</td>
+      <td style="width: 30%; text-align: right;">3</td>
+    </tr>
+    <tr>
+      <td>2. Introduction</td>
+      <td style="text-align: right;">4</td>
+    </tr>
+    <tr>
+      <td>3. System Analysis and Design</td>
+      <td style="text-align: right;">5</td>
+    </tr>
+    <tr>
+      <td>4. Module Description</td>
+      <td style="text-align: right;">7</td>
+    </tr>
+    <tr>
+      <td>5. Database Design</td>
+      <td style="text-align: right;">9</td>
+    </tr>
+    <tr>
+      <td>6. Operational Flow</td>
+      <td style="text-align: right;">11</td>
+    </tr>
+    <tr>
+      <td>7. Conclusion</td>
+      <td style="text-align: right;">13</td>
+    </tr>
+    <tr>
+      <td>8. Bibliography</td>
+      <td style="text-align: right;">14</td>
+    </tr>
+  </table>
+
+  <h2>1. SYNOPSIS</h2>
+  <p>
+    The Inventory and Billing Management System is a full-stack retail operations application designed to help a store manage its product catalog, monitor stock levels, process point-of-sale transactions, and review sales analytics from a single interface.
+  </p>
+  <p>
+    The application is built with a React frontend and an Express backend. It supports inventory management, billing checkout, low-stock alerts, revenue reporting, and transactional invoice creation. When Supabase credentials are available, the app uses a live database. If the backend database is not available, the system automatically falls back to a local sandbox store so that the user can continue working without interruption.
+  </p>
+  <p>
+    The project demonstrates practical implementation of modern web development concepts such as component-based UI design, REST API communication, transactional data handling, and dashboard analytics.
+  </p>
+
+  <h2>2. INTRODUCTION</h2>
+  <p>
+    Managing inventory and billing manually can lead to stock errors, delayed billing, duplicate entries, and poor visibility into business performance. This system is designed to reduce those issues by providing a unified digital platform for day-to-day retail operations.
+  </p>
+  <p>
+    The application has three main working areas:
+  </p>
+  <ul>
+    <li>Dashboard for monitoring revenue, profit, and low-stock items</li>
+    <li>Inventory section for product maintenance and stock updates</li>
+    <li>Billing terminal for checkout and invoice generation</li>
+  </ul>
+  <p>
+    The design focuses on simplicity, speed, and operational safety. Product updates are immediately reflected across all areas, and billing transactions update stock levels atomically so that the inventory remains consistent.
+  </p>
+
+  <h2>3. SYSTEM ANALYSIS AND DESIGN</h2>
+  <h3>3.1 Objectives</h3>
+  <ul>
+    <li>Maintain a structured product catalog with SKU-based identification</li>
+    <li>Track stock levels and highlight low-stock products</li>
+    <li>Support billing with cart-based checkout and invoice generation</li>
+    <li>Provide analytics for revenue, profit, and sales trends</li>
+    <li>Ensure the application still works even when the live database is unavailable</li>
+  </ul>
+
+  <h3>3.2 Technical Architecture</h3>
+  <table>
+    <tr>
+      <th>Layer</th>
+      <th>Technology</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td>Frontend</td>
+      <td>React + TypeScript + Vite</td>
+      <td>Provides the user interface and tab-based navigation</td>
+    </tr>
+    <tr>
+      <td>Backend</td>
+      <td>Express + Node.js</td>
+      <td>Exposes API routes and serves production assets</td>
+    </tr>
+    <tr>
+      <td>Data Store</td>
+      <td>Supabase / In-memory sandbox</td>
+      <td>Stores products, invoices, and analytics data</td>
+    </tr>
+    <tr>
+      <td>Visualization</td>
+      <td>Chart.js</td>
+      <td>Displays revenue and sales charts on the dashboard</td>
+    </tr>
+  </table>
+
+  <h3>3.3 Main API Routes</h3>
+  <ul>
+    <li><strong>GET /api/health</strong> - Service health check</li>
+    <li><strong>GET /api/inventory</strong> - Fetch product list</li>
+    <li><strong>POST /api/inventory</strong> - Create a new product</li>
+    <li><strong>PUT /api/inventory/:id</strong> - Update an existing product</li>
+    <li><strong>DELETE /api/inventory/:id</strong> - Remove a product</li>
+    <li><strong>POST /api/billing/invoice</strong> - Create invoice and deduct stock</li>
+    <li><strong>GET /api/analytics/dashboard</strong> - Return dashboard metrics</li>
+  </ul>
+
+  <h3>3.4 Design Considerations</h3>
+  <ul>
+    <li>Low-stock conditions are visible both in the inventory table and dashboard alerts</li>
+    <li>Billing prevents quantity selection beyond available stock</li>
+    <li>Invoice creation is transactional to prevent stock mismatch</li>
+    <li>The app supports both persistent storage and sandbox mode for development</li>
+  </ul>
+
+  <h2>4. MODULE DESCRIPTION</h2>
+  <h3>4.1 Dashboard Module</h3>
+  <p>
+    The dashboard summarizes business performance using cards and charts. It shows total revenue, profit margin, active SKU count, low-stock alerts, top-selling products, and recent sales trends.
+  </p>
+
+  <h3>4.2 Inventory Module</h3>
+  <p>
+    The inventory module allows the user to create, edit, search, sort, and delete products. Each product includes a unique SKU, stock quantity, low-stock threshold, selling price, and cost price.
+  </p>
+
+  <h3>4.3 Billing Terminal Module</h3>
+  <p>
+    The billing terminal allows the cashier to search products, add items to a cart, adjust quantities, apply a discount, and complete checkout. After checkout, the system creates a unique invoice number, saves the transaction, and decrements stock levels.
+  </p>
+
+  <h3>4.4 Analytics and Reporting Module</h3>
+  <p>
+    This module compiles aggregated data for financial and operational reporting. It calculates total revenue, profit, daily sales trends, top-selling items, and low-stock product lists.
+  </p>
+
+  <h3>4.5 Fallback Sandbox Module</h3>
+  <p>
+    If Supabase is not configured or becomes unavailable at runtime, the application automatically switches to an in-memory sandbox database. This keeps the UI functional and is useful for demo and development purposes.
+  </p>
+
+  <h2>5. DATABASE DESIGN</h2>
+  <p>
+    The system database is defined in <strong>schema.sql</strong>. It includes four main tables and one transactional RPC function.
+  </p>
+
+  <table>
+    <tr>
+      <th>Table / Function</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td>profiles</td>
+      <td>Stores cashier or user profile details</td>
+    </tr>
+    <tr>
+      <td>products</td>
+      <td>Stores product information and inventory stock</td>
+    </tr>
+    <tr>
+      <td>invoices</td>
+      <td>Stores completed billing transactions</td>
+    </tr>
+    <tr>
+      <td>invoice_items</td>
+      <td>Stores the item-level details of each invoice</td>
+    </tr>
+    <tr>
+      <td>create_invoice(...)</td>
+      <td>Creates invoices and reduces stock atomically</td>
+    </tr>
+  </table>
+
+  <p>
+    Important database rules include:
+  </p>
+  <ul>
+    <li>Each SKU must be unique</li>
+    <li>Stock and price values must not be negative</li>
+    <li>The invoice function locks stock rows to avoid race conditions</li>
+    <li>Profile records can be auto-created from authentication events</li>
+  </ul>
+
+  <h2>6. OPERATIONAL FLOW</h2>
+  <h3>6.1 Product Management Flow</h3>
+  <p>
+    The user opens the inventory tab, adds a product using the form, and the system sends the data to the backend API. The new product is then saved in the database or sandbox store and immediately shown in the table.
+  </p>
+
+  <h3>6.2 Checkout Flow</h3>
+  <p>
+    The cashier selects products from the billing terminal, builds a cart, adjusts quantities, and submits the checkout request. The backend validates all line items, creates the invoice, updates stock, and returns a confirmation response.
+  </p>
+
+  <h3>6.3 Analytics Refresh Flow</h3>
+  <p>
+    After inventory changes or a completed checkout, the user interface refreshes the data from the backend so that dashboard metrics, stock counts, and low-stock warnings remain synchronized across all tabs.
+  </p>
+
+  <div class="box">
+    <strong>Figure Placeholder:</strong> Insert screenshots of the Dashboard, Inventory, and Billing Terminal pages here if you want a fully illustrated submission copy.
+  </div>
+
+  <h2>7. CONCLUSION</h2>
+  <p>
+    The Inventory and Billing Management System provides a practical and reliable solution for small to medium retail operations. It combines product management, billing, and analytics in one interface and protects stock integrity through transactional checkout logic.
+  </p>
+  <p>
+    The project also demonstrates a resilient design approach by including a sandbox fallback when live database connectivity is unavailable. This makes the application suitable for demos, testing, and everyday operational use.
+  </p>
+  <p>
+    Overall, the system successfully achieves the goal of improving retail workflow efficiency, stock visibility, and billing accuracy.
+  </p>
+
+  <h2>8. BIBLIOGRAPHY</h2>
+  <ul>
+    <li>React Documentation - https://react.dev/</li>
+    <li>TypeScript Handbook - https://www.typescriptlang.org/docs/</li>
+    <li>Express Documentation - https://expressjs.com/</li>
+    <li>Supabase Documentation - https://supabase.com/docs</li>
+    <li>Vite Documentation - https://vite.dev/</li>
+    <li>Chart.js Documentation - https://www.chartjs.org/docs/</li>
+  </ul>
+
+</body>
+</html>

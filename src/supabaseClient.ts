@@ -80,8 +80,6 @@ class LocalSandboxDatabase {
     for (let i = 6; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(today.getDate() - i);
-      const dayName = d.toISOString().split('T')[0];
-
       // Add 1 or 2 invoices per day
       const numInvoices = i === 0 ? 3 : (i % 2 === 0 ? 2 : 1);
       for (let j = 0; j < numInvoices; j++) {
@@ -91,7 +89,6 @@ class LocalSandboxDatabase {
         // Randomly pick products to compose invoice
         const p1 = this.products[0];
         const p2 = this.products[2];
-        const p3 = this.products[4];
 
         let invTotal = 0;
         let invTax = 0;

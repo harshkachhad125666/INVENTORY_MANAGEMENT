@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   BarChart3, 
   Package, 
   CreditCard, 
   Menu, 
   X, 
-  Store, 
   RefreshCw, 
   UserCheck, 
   AlertCircle
@@ -17,7 +16,7 @@ import BillingTerminal from './components/BillingTerminal.tsx';
 type TabType = 'dashboard' | 'inventory' | 'billing';
 
 export default function App() {
-  const [activeTab, setActiveTabTab] = useState<TabType>('dashboard');
+  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [triggerRefresh, setTriggerRefresh] = useState(false);
   const [lowStockCount, setLowStockCount] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -84,7 +83,7 @@ export default function App() {
             
             {/* Tab 1: Dashboard Insights */}
             <button
-              onClick={() => { setActiveTabTab('dashboard'); setSidebarOpen(false); }}
+              onClick={() => { setActiveTab('dashboard'); setSidebarOpen(false); }}
               id="sidebar-tab-dashboard"
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-xs font-semibold uppercase tracking-wider ${
                 activeTab === 'dashboard' 
@@ -100,7 +99,7 @@ export default function App() {
 
             {/* Tab 2: Inventory Catalog */}
             <button
-              onClick={() => { setActiveTabTab('inventory'); setSidebarOpen(false); }}
+              onClick={() => { setActiveTab('inventory'); setSidebarOpen(false); }}
               id="sidebar-tab-inventory"
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-xs font-semibold uppercase tracking-wider ${
                 activeTab === 'inventory' 
@@ -121,7 +120,7 @@ export default function App() {
 
             {/* Tab 3: POS Billing Terminal */}
             <button
-              onClick={() => { setActiveTabTab('billing'); setSidebarOpen(false); }}
+              onClick={() => { setActiveTab('billing'); setSidebarOpen(false); }}
               id="sidebar-tab-billing"
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-xs font-semibold uppercase tracking-wider ${
                 activeTab === 'billing' 
@@ -191,7 +190,7 @@ export default function App() {
         {/* Dynamic Panel Mount */}
         {activeTab === 'dashboard' && (
           <Dashboard 
-            onNavigateToInventory={() => setActiveTabTab('inventory')}
+            onNavigateToInventory={() => setActiveTab('inventory')}
             triggerRefresh={triggerRefresh}
             onRestocked={handleGlobalRefresh}
           />

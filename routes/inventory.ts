@@ -4,7 +4,7 @@ import { dbService } from '../src/supabaseClient.ts';
 export const inventoryRouter = Router();
 
 // Handle GET / - Fetch all products
-inventoryRouter.get('/', async (req: Request, res: Response) => {
+inventoryRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const products = await dbService.getProducts();
     res.json({ 

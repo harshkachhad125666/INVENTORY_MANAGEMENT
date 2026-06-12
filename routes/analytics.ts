@@ -4,7 +4,7 @@ import { dbService } from '../src/supabaseClient.ts';
 export const analyticsRouter = Router();
 
 // Handle GET /dashboard - Compile high-fidelity financial charts data and stock levels
-analyticsRouter.get('/dashboard', async (req: Request, res: Response) => {
+analyticsRouter.get('/dashboard', async (_req: Request, res: Response) => {
   try {
     const analytics = await dbService.getDashboardAnalytics();
     res.json({ 

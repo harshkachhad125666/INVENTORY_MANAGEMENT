@@ -12,6 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const isDevelopment = process.env.NODE_ENV === 'development' || process.env.npm_lifecycle_event === 'dev';
 
 app.use(cors());
 app.use(express.json());
@@ -26,15 +27,15 @@ app.use('/api/billing', billingRouter);
 app.use('/api/analytics', analyticsRouter);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({ success: true, status: 'Active', timestamp: new Date().toISOString() });
 });
 
 const PORT = 3000;
 
 async function start() {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('🚀 Starting Express in DEVELOPMENT mode and attaching Vite DevServer programmatically value...');
+  if (isDevelopment) {
+    console.log('Starting Express in development mode with Vite middleware...');
     
     // Import Vite programmatically to run side-by-side with HMR disabled or enabled appropriately
     const { createServer } = await import('vite');
@@ -49,7 +50,7 @@ async function start() {
     // Use Vite's mount middlewares
     app.use(vite.middlewares);
   } else {
-    console.log('📦 Starting Express in PRODUCTION mode, serving compiled web assets...');
+    console.log('Starting Express in production mode, serving compiled web assets...');
     
     // Serve static files from the dist folder
     const distPath = path.join(__dirname, 'dist');
@@ -65,7 +66,7 @@ async function start() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`📡 Fullstack inventory service listening on PORT: http://0.0.0.0:${PORT}`);
+    console.log(`Fullstack inventory service listening on http://0.0.0.0:${PORT}`);
   });
 }
 

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Search, 
   ShoppingCart, 
-  DollarSign, 
   Trash2, 
   Minus, 
   Plus, 
@@ -10,9 +9,6 @@ import {
   CheckCircle, 
   AlertTriangle, 
   Sparkles,
-  User,
-  Tags,
-  Receipt,
   X,
   RefreshCw
 } from 'lucide-react';
@@ -168,7 +164,7 @@ export default function BillingTerminal({ triggerRefresh, onCheckoutComplete }: 
         setReceiptDetails({
           invoice_number: invoiceNumber,
           timestamp: now.toISOString(),
-          cashor_name: 'Alex Cashier',
+          cashier_name: 'Alex Cashier',
           items: [...cart],
           subtotal,
           taxAmount,
@@ -499,7 +495,7 @@ export default function BillingTerminal({ triggerRefresh, onCheckoutComplete }: 
                   </div>
                   <div className="flex justify-between">
                     <span>SECURE CASHIER:</span>
-                    <span>{receiptDetails.cashor_name}</span>
+                    <span>{receiptDetails.cashier_name}</span>
                   </div>
                 </div>
 
