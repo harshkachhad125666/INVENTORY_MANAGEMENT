@@ -12,6 +12,7 @@ import {
 import Dashboard from './components/Dashboard.tsx';
 import Inventory from './components/Inventory.tsx';
 import BillingTerminal from './components/BillingTerminal.tsx';
+import { offlineApi } from './offlineApi.ts';
 
 type TabType = 'dashboard' | 'inventory' | 'billing';
 
@@ -24,8 +25,7 @@ export default function App() {
   // Poll for low-stock triggers to show alerts on the left sidebar badge
   const updateLowStockBadge = async () => {
     try {
-      const res = await fetch('/api/analytics/dashboard');
-      const data = await res.json();
+      const data = await offlineApi.getDashboardAnalytics();
       if (data.success) {
         setLowStockCount(data.analytics.overview.activeLowStockAlerts);
       }

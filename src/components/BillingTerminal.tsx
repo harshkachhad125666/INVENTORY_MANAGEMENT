@@ -12,6 +12,7 @@ import {
   X,
   RefreshCw
 } from 'lucide-react';
+import { offlineApi } from '../offlineApi.ts';
 
 interface Product {
   id: string;
@@ -53,8 +54,7 @@ export default function BillingTerminal({ triggerRefresh, onCheckoutComplete }: 
   const fetchCatalog = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/inventory');
-      const data = await res.json();
+      const data = await offlineApi.getInventory();
       if (data.success) {
         setProducts(data.products || []);
         setError(null);
@@ -152,12 +152,7 @@ export default function BillingTerminal({ triggerRefresh, onCheckoutComplete }: 
 
     try {
       setSubmitting(true);
-      const res = await fetch('/api/billing/invoice', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
+      const data = await offlineApi.createInvoice(payload);
 
       if (data.success) {
         // Prepare beautiful receipt modal

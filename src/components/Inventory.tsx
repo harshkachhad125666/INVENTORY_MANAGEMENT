@@ -8,6 +8,7 @@ import {
   RefreshCw,
   X,
 } from 'lucide-react';
+import { offlineApi } from '../offlineApi.ts';
 
 interface Product {
   id: string;
@@ -54,8 +55,7 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
   const fetchInventory = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/inventory');
-      const data = await res.json();
+      const data = await offlineApi.getInventory();
       if (data.success) {
         setProducts(data.products || []);
         setError(null);
@@ -107,19 +107,14 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
     try {
       setSaving(true);
       setFormError(null);
-      const res = await fetch('/api/inventory', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: newName,
-          sku: newSku,
-          stock_quantity: parseInt(newStock),
-          low_stock_threshold: parseInt(newThreshold),
-          price: parseFloat(newPrice),
-          cost_price: parseFloat(newCost)
-        })
+      const data = await offlineApi.createProduct({
+        name: newName,
+        sku: newSku,
+        stock_quantity: parseInt(newStock),
+        low_stock_threshold: parseInt(newThreshold),
+        price: parseFloat(newPrice),
+        cost_price: parseFloat(newCost)
       });
-      const data = await res.json();
 
       if (data.success) {
         setIsAddOpen(false);
@@ -142,19 +137,14 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
     try {
       setSaving(true);
       setFormError(null);
-      const res = await fetch(`/api/inventory/${selectedProduct.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: newName,
-          sku: newSku,
-          stock_quantity: parseInt(newStock),
-          low_stock_threshold: parseInt(newThreshold),
-          price: parseFloat(newPrice),
-          cost_price: parseFloat(newCost)
-        })
+      const data = await offlineApi.updateProduct(selectedProduct.id, {
+        name: newName,
+        sku: newSku,
+        stock_quantity: parseInt(newStock),
+        low_stock_threshold: parseInt(newThreshold),
+        price: parseFloat(newPrice),
+        cost_price: parseFloat(newCost)
       });
-      const data = await res.json();
 
       if (data.success) {
         setIsEditOpen(false);
@@ -175,8 +165,7 @@ export default function Inventory({ triggerRefresh, onInventoryChanged }: Invent
     if (!confirm(`Are you absolutely sure you want to completely delete "${name}" from the active database? This cannot be undone.`)) return;
     
     try {
-      const res = await fetch(`/api/inventory/${id}`, { method: 'DELETE' });
-      const data = await res.json();
+      const data = await offlineApi.deleteProduct(id);
       if (data.success) {
         fetchInventory();
         onInventoryChanged();

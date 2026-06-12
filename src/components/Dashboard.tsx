@@ -9,6 +9,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { Line, Bar } from 'react-chartjs-2';
+import { offlineApi } from '../offlineApi.ts';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -59,8 +60,7 @@ export default function Dashboard({ onNavigateToInventory, triggerRefresh, onRes
     async function fetchAnalytics() {
       try {
         setLoading(true);
-        const res = await fetch('/api/analytics/dashboard');
-        const data = await res.json();
+        const data = await offlineApi.getDashboardAnalytics();
         
         if (data.success) {
           setMetrics(data.analytics);
@@ -86,12 +86,7 @@ export default function Dashboard({ onNavigateToInventory, triggerRefresh, onRes
     if (!selectedProduct) return;
     try {
       setUpdating(true);
-      const res = await fetch(`/api/inventory/${selectedProduct.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ stock_quantity: newStock })
-      });
-      const data = await res.json();
+      const data = await offlineApi.updateProduct(selectedProduct.id, { stock_quantity: newStock });
       if (data.success) {
         setSelectedProduct(null);
         onRestocked(); // Notify parent so stock matches everywhere
