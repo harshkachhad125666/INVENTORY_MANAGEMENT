@@ -641,6 +641,13 @@ async function start() {
     console.log(`Fullstack inventory service listening on http://0.0.0.0:${PORT}`);
   });
 }
-start().catch((err) => {
-  console.error("Fatal crash on full-stack webserver startup:", err);
-});
+if (!process.env.VERCEL) {
+  start().catch((err) => {
+    console.error("Fatal crash on full-stack webserver startup:", err);
+  });
+}
+var server_default = app;
+export {
+  app,
+  server_default as default
+};

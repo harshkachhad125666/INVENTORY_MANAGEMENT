@@ -70,6 +70,11 @@ async function start() {
   });
 }
 
-start().catch((err) => {
-  console.error('Fatal crash on full-stack webserver startup:', err);
-});
+if (!process.env.VERCEL) {
+  start().catch((err) => {
+    console.error('Fatal crash on full-stack webserver startup:', err);
+  });
+}
+
+export { app };
+export default app;
